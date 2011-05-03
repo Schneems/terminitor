@@ -55,6 +55,7 @@ module Terminitor
         # add title to tab
         tab_content[:commands].insert(0, "PS1=\"$PS1\\e]2;#{tab_name}\\a\"") if tab_name
         tab_content[:commands].insert(0, "cd \"#{@working_dir}\"") unless @working_dir.to_s.empty?
+        tab_content[:commands].insert(0, "PROMPT_COMMAND='echo -ne \"\\033]0; #{tab_name} \\007\"'") if tab_name
         tab_content[:commands].each { |cmd| execute_command(cmd, :in => tab) }
       end
       set_delayed_options
